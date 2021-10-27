@@ -656,19 +656,12 @@ set(prefix ${CMAKE_INSTALL_PREFIX})
 configure_file(libuv.pc.in libuv.pc @ONLY)
 configure_file(libuv-static.pc.in libuv-static.pc @ONLY)
 
-get_cmake_property(_variableNames VARIABLES)
-list (SORT _variableNames)
-foreach (_variableName ${_variableNames})
-    message(STATUS "${_variableName}=${${_variableName}}")
-endforeach()
-
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_DOCDIR})
 install(FILES ${PROJECT_BINARY_DIR}/libuv.pc ${PROJECT_BINARY_DIR}/libuv-static.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-message(STATUS "Install directory: ${CMAKE_INSTALL_FULL_LIBDIR}")
-install(TARGETS uv LIBRARY DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}")
-install(TARGETS uv_a ARCHIVE DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}")
+install(TARGETS uv RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS uv_a ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 if(MSVC)
   set(CMAKE_DEBUG_POSTFIX d)
